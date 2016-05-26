@@ -397,8 +397,7 @@ class DotNotationAccessArrayTest extends \PHPUnit_Framework_TestCase
      */
     public function accessingArrayWhichHasKeysWithSpecialChars(array $item)
     {
-        $sut = new DotNotationAccessArray($item);
-        $sut->getAll();
+        new DotNotationAccessArray($item);
     }
 
     public function arrayWithSpecialCharsProvider()
