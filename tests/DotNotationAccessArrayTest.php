@@ -280,7 +280,7 @@ class DotNotationAccessArrayTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($actual);
         $this->assertNotSame($this->sut, $modifiedSut);
     }
-    
+
     /**
      * Unit Test:
      *
@@ -387,5 +387,33 @@ class DotNotationAccessArrayTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->sut->merge($newConfig);
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @test
+     * @dataProvider arrayWithSpecialCharsProvider
+     *
+     * @param array $item
+     */
+    public function accessingArrayWhichHasKeysWithSpecialChars(array $item)
+    {
+        $sut = new DotNotationAccessArray($item);
+        $sut->getAll();
+    }
+
+    public function arrayWithSpecialCharsProvider()
+    {
+        $anyValue = [];
+        return [
+            "dot as part of the key" => [[
+                'foo.bar' => $anyValue,
+            ]],
+            "hash as part of the key" => [[
+                'foo#bar' => $anyValue,
+            ]],
+            "space as part of the key" => [[
+                'foo bar' => $anyValue,
+            ]],
+        ];
     }
 }
